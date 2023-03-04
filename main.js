@@ -26,9 +26,9 @@ var getPromisify = (url, data, dataType) => {
     // ------------------
     async get (url, data, dataType) {
       const r = await getPromisify(url, data, dataType)
-      console.log(r.response);
+      console.log(r.response.data.Year);
       return [
-        r.response.data.Year
+        /*r.response.data.Year*/
       ]
     }
   }

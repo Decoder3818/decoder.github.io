@@ -28,7 +28,7 @@ var getPromisify = (url, data, dataType) => {
       const r = await getPromisify(url, data, dataType)
       console.log(r);
       return [
-        r.response.positiveCasesViral,
+        r.response.positive,
         r.response.positiveIncrease,
         r.response.hospitalizedCurrently
       ]

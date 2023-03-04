@@ -26,9 +26,9 @@ var getPromisify = (url, data, dataType) => {
     // ------------------
     async get (url, data, dataType) {
       const r = await getPromisify(url, data, dataType)
-      console.log(r.response.bpi.USD.rate);
+      console.log(r.response);
       return [
-        r.response.bpi.USD.rate
+        r.response
       ]
     }
   }

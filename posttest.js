@@ -9,8 +9,6 @@ var ajaxPromisify = (url, type, data, headers) => {
                 "Host": "23c126a7-beb6-43cc-86bf-42e00558034c.mock.pstmn.io",
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Cache-Control": "no-cache",
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3}",
                 "Connection": "keep-alive"
                      },
       // xhrFields: {
@@ -46,7 +44,7 @@ const SERVICE_END_POINT = 'https://23c126a7-beb6-43cc-86bf-42e00558034c.mock.pst
 
     async post (path, jsonString) {
       const { response } = await ajaxPromisify(`${SERVICE_END_POINT}${path}`, 'POST', jsonString)
-      return response.statusCode
+      return response
     }
   }
 

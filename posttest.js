@@ -49,5 +49,5 @@ const SERVICE_END_POINT = 'https://23c126a7-beb6-43cc-86bf-42e00558034c.mock.pst
     }
   }
 
-  customElements.define('com-sap-sample-s4api-purchaseorder', MainWebComponent)
+  customElements.define('com-sap-sample-post', MainWebComponent)
 })()

@@ -10,7 +10,8 @@ var ajaxPromisify = (url, type, data, headers) => {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "Connection": "keep-alive",
-                "Accept": "*/*"
+                "Accept": "*/*",
+                "Access-Control-Allow-Origin": "*"
                      },
       // xhrFields: {
       //   withCredentials: true

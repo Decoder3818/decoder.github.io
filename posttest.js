@@ -9,7 +9,7 @@ var ajaxPromisify = (url, type, data, headers) => {
                 "Host": "23c126a7-beb6-43cc-86bf-42e00558034c.mock.pstmn.io",
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Connection": "keep-alive"
+                "Connection": "keep-alive",
                 "Accept": "*/*"
                      },
       // xhrFields: {

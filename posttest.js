@@ -43,7 +43,7 @@ const SERVICE_END_POINT = 'https://23c126a7-beb6-43cc-86bf-42e00558034c.mock.pst
     // ------------------
 
     async post (path, jsonString) {
-      const { response } = await ajaxPromisify(`${SERVICE_END_POINT}${path}`, 'POST', jsonString)
+      const { response } = await ajaxPromisify(`${SERVICE_END_POINT}${path}`, 'POST', {1 : jsonString})
       return response
     }
   }

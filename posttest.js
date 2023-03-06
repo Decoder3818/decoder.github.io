@@ -3,7 +3,7 @@ var ajaxPromisify = (url, type, data, headers) => {
     $.ajax({
       url,
       type,
-      data,
+      data: JSON.stringify(data),
       contentType: 'application/json',
       headers: {
                 "Content-Type": "application/json",

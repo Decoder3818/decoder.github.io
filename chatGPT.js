@@ -28,7 +28,7 @@ var ajaxCall = (Key, Url, Prompt) => {
   });
 };
 
-const url = "https://api.openai.com/v1/completions";
+const url = "https://api.openai.com/v1";
 
 (function () {
   const template = document.createElement("template");
@@ -45,6 +45,7 @@ const url = "https://api.openai.com/v1/completions";
         `${url}/${endpoint}`,
         prompt
       );
+      console.log(response);
       return response;
     }
   }

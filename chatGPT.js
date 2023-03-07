@@ -46,7 +46,7 @@ const url = "https://api.openai.com/v1";
         prompt
       );
       console.log(response);
-      return response;
+      return response.choices[0].text;;
     }
   }
   customElements.define("custom-widget", MainWebComponent);

@@ -45,8 +45,8 @@ const url = "https://api.openai.com/v1";
         `${url}/${endpoint}`,
         prompt
       );
-      console.log(response);
-      return response.choices[0].text;;
+      console.log(response.choices[0].text);
+      return response.choices[0].text;
     }
   }
   customElements.define("custom-widget", MainWebComponent);

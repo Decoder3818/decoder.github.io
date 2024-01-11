@@ -40,7 +40,7 @@ const url = "https://api.openai.com/v1";
     `;
   class MainWebComponent extends HTMLElement {
     async post(apiKey, endpoint, messages) {
-      messages = JSON.parse(messages);
+      messages = messages.map(msg => JSON.parse(msg));
       const { response } = await ajaxCall(
         apiKey,
         `${url}/${endpoint}`,

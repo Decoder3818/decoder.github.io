@@ -1,12 +1,15 @@
 var ajaxCall = (key, url, messages) => {
   return new Promise((resolve, reject) => {
+    // Convert each JSON string in the messages array to a JSON object
+    const parsedMessages = messages.map(msg => JSON.parse(msg));
+
     $.ajax({
       url: url,
       type: "POST",
       dataType: "json",
       data: JSON.stringify({
         model: "gpt-4-1106-preview",
-        messages: messages,
+        messages: parsedMessages,
         max_tokens: 1024,
         n: 1,
         temperature: 0.5,
@@ -40,11 +43,11 @@ const url = "https://api.openai.com/v1";
     `;
   class MainWebComponent extends HTMLElement {
     async post(apiKey, endpoint, messages) {
-      messages = messages.map(msg => JSON.parse(msg));
+      // The messages array will contain JSON strings, so we parse them here
       const { response } = await ajaxCall(
         apiKey,
         `${url}/${endpoint}`,
-        messages
+        messages // Keep this as is, since it's supposed to be an array of JSON strings
       );
       console.log(response.choices[0].message.content);
       return response.choices[0].message.content;

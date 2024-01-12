@@ -59,16 +59,29 @@ const url = "https://api.openai.com/v1";
       </div>
     `;
   class MainWebComponent extends HTMLElement {
-    async post(apiKey, endpoint, messages) {
-      // The messages array will contain JSON strings, so we parse them here
-      const { response } = await ajaxCall(
-        apiKey,
-        `${url}/${endpoint}`,
-        messages // Keep this as is, since it's supposed to be an array of JSON strings
-      );
+  async post(apiKey, endpoint, messages) {
+    // The messages array will contain JSON strings, so we parse them here
+    const { response } = await ajaxCall(
+      apiKey,
+      `${url}/${endpoint}`,
+      messages // Keep this as is, since it's supposed to be an array of JSON strings
+    );
+    // Check if 'content' is null and retrieve arguments from 'tool_calls' if available
+    if (response.choices[0].message.content == null) {
+      const toolCalls = response.choices[0].message.tool_calls;
+      if (toolCalls && toolCalls.length > 0) {
+        const toolCallArguments = toolCalls[0].function.arguments;
+        // Assuming you want to use the arguments as a JSON string
+        console.log(toolCallArguments);
+        return toolCallArguments;
+      } else {
+        throw new Error("No content or tool calls available in response");
+      }
+    } else {
       console.log(response.choices[0].message.content);
       return response.choices[0].message.content;
     }
   }
+}
   customElements.define("custom-widget", MainWebComponent);
 })();

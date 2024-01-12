@@ -12,7 +12,7 @@ var ajaxCall = (key, url, messages) => {
             "type": "function",
             "function": {
                 "name": "get_details",
-                "description": Get the required values from user query such as Material Number, Transfer Pricing Strategy and Jurisdiction. Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous. Keep your request output short and to the point",
+                "description": "Get the required values from user query such as Material Number, Transfer Pricing Strategy and Jurisdiction.",
                 "parameters": {
                     "type": "object",
                     "properties": {

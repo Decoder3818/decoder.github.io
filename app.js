@@ -11,8 +11,8 @@ var ajaxCall = (key, url, messages) => {
         {
             "type": "function",
             "function": {
-                "name": "get_details",
-                "description": "Get the required values from user query such as Material Number, Transfer Pricing Strategy and Jurisdiction.",
+                "name": "get_IC_Prices",
+                "description": "Get the required values from user query such as Material Number, Transfer Pricing Strategy and Jurisdiction to determine Intercompany Prices(IC).",
                 "parameters": {
                     "type": "object",
                     "properties": {

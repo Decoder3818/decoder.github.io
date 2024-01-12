@@ -7,6 +7,26 @@ var ajaxCall = (key, url, messages) => {
       data: JSON.stringify({
         model: "gpt-4-1106-preview",
         messages: messages,
+         "tools" : [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_values",
+                "description": "Get the required values from user query such as Material Number, Transfer Pricing Strategy and Jurisdiction",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "Material Number": {"type": "string", "description": "Material number of the product"},
+                        
+                        "Transfer Princing Strategy": {"type": "string", "description": "The applicable transfer pricing strategy"},
+                        
+                        "Jurisdiction": {"type": "string", "description": "Location for which user is searching"}
+                    },
+                    "required": ["Material Number", "TP Strategy", "Jurisdiction"]
+                }
+            }
+        }
+    ],
         max_tokens: 1024,
         n: 1,
         temperature: 0.5,

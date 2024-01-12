@@ -11,8 +11,8 @@ var ajaxCall = (key, url, messages) => {
         {
             "type": "function",
             "function": {
-                "name": "Determine__IC_prices",
-                "description": "This function returns the values needed for determining Intercompany(IC) prices. Get the required values from user query such as Material Number, Transfer Pricing Strategy and Jurisdiction. Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous. Keep your request output short and to the point",
+                "name": "get_details",
+                "description": Get the required values from user query such as Material Number, Transfer Pricing Strategy and Jurisdiction. Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous. Keep your request output short and to the point",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -29,7 +29,7 @@ var ajaxCall = (key, url, messages) => {
     ],
         max_tokens: 1024,
         n: 1,
-        temperature: 0.5,
+        temperature: 0.9,
       }),
       headers: {
         "Content-Type": "application/json",

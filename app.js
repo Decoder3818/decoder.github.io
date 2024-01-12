@@ -11,8 +11,8 @@ var ajaxCall = (key, url, messages) => {
         {
             "type": "function",
             "function": {
-                "name": "get_IC_Prices",
-                "description": "Get the required values from user query such as Material Number, Transfer Pricing Strategy and Jurisdiction to determine Intercompany Prices(IC).",
+                "name": "get_transaction_info",
+                "description": "Get the required information from user such as Material Number, Transfer Pricing Strategy and Company Code Country.",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -20,16 +20,16 @@ var ajaxCall = (key, url, messages) => {
                         
                         "Transfer Princing Strategy": {"type": "string", "description": "The applicable transfer pricing strategy"},
                         
-                        "Jurisdiction": {"type": "string", "description": "Location for which user is searching"}
+                        "Company Code Country": {"type": "string", "description": "Location for which user is searching"}
                     },
-                    "required": ["Material Number", "Transfer Pricing Strategy", "Jurisdiction"]
+                    "required": ["Material Number", "Transfer Pricing Strategy", "Company Code Country"]
                 }
             }
         }
     ],
-        max_tokens: 1024,
+        max_tokens: 100,
         n: 1,
-        temperature: 0.9,
+        temperature: 0.1,
       }),
       headers: {
         "Content-Type": "application/json",

@@ -22,7 +22,7 @@ var ajaxCall = (key, url, messages) => {
                         
                         "Company Code Country": {"type": "string", "description": "Location for which user is searching"}
                     },
-                    "required": ["Material Number", "Transfer Pricing Strategy", "Company Code Country"]
+                    "required": ["Material Number","Transfer Pricing Strategy","Company Code Country"]
                 }
             }
         }

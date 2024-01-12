@@ -5,14 +5,14 @@ var ajaxCall = (key, url, messages) => {
       type: "POST",
       dataType: "json",
       data: JSON.stringify({
-        model: "gpt-4",
+        model: "gpt-4-1106-preview",
         messages: messages,
          "tools" : [
         {
             "type": "function",
             "function": {
-                "name": "get_transaction_info",
-                "description": "Get the required information from user such as Material Number, Transfer Pricing Strategy and Company Code Country.",
+                "name": "get_IC_price",
+                "description": "Get the required information from user such as Material Number, Transfer Pricing Strategy and Company Code Country to determine Intercompany(IC) price",
                 "parameters": {
                     "type": "object",
                     "properties": {

@@ -11,27 +11,21 @@ var ajaxCall = (key, url, messages) => {
         {
             "type": "function",
             "function": {
-                "name": "get_IC_price",
-                "description": "Get the required information from user such as Material Number, Transfer Pricing Strategy and Company Code Country to determine Intercompany(IC) price",
+                "name": "get_function_name",
+                "description": "your task is to interpret user query and determine the material number and name of the function to trigger",
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "Material Number":{
-                          "type": "string", 
-                          "description": "Material number of the product"
-                        },
+                        "Material Number": {
+                            "type": "string", 
+                            "description": "Material number of the product"},
                         
-                        "Transfer Princing Strategy": {
-                          "type": "string", 
-                          "description": "The applicable transfer pricing strategy"
-                        },
-                        
-                        "Company Code Country": {
-                          "type": "string", 
-                          "description": "Location for which user is searching"
-                        }
+                        "trigger": {
+                            "type": "string", 
+                            "description": "The function to trigger",
+                            "enum": ["ic_price", "asp"]}
                     },
-                    "required": ["Material Number","Transfer Pricing Strategy","Company Code Country"]
+                    "required": ["Material Number","trigger"]
                 }
             }
         }

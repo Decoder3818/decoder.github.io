@@ -16,11 +16,20 @@ var ajaxCall = (key, url, messages) => {
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "Material Number": {"type": "string", "description": "Material number of the product"},
+                        "Material Number":{
+                          "type": "string", 
+                          "description": "Material number of the product"
+                        },
                         
-                        "Transfer Princing Strategy": {"type": "string", "description": "The applicable transfer pricing strategy"},
+                        "Transfer Princing Strategy": {
+                          "type": "string", 
+                          "description": "The applicable transfer pricing strategy"
+                        },
                         
-                        "Company Code Country": {"type": "string", "description": "Location for which user is searching"}
+                        "Company Code Country": {
+                          "type": "string", 
+                          "description": "Location for which user is searching"
+                        }
                     },
                     "required": ["Material Number","Transfer Pricing Strategy","Company Code Country"]
                 }

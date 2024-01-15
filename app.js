@@ -5,7 +5,7 @@ var ajaxCall = (key, url, messages) => {
       type: "POST",
       dataType: "json",
       data: JSON.stringify({
-        model: "gpt-4-1106-preview",
+        model: "gpt-3.5-turbo-1106",
         messages: messages,
          "tools" : [
         {

@@ -1,7 +1,5 @@
 const ajaxCall = (url, query, access_token) => {
   return new Promise((resolve, reject) => {
-    console.log('Making API call with token:', access_token);
-    
     $.ajax({
       url: url,
       type: "POST",
@@ -19,15 +17,9 @@ const ajaxCall = (url, query, access_token) => {
       },
       crossDomain: true,
       success: function (response, status, xhr) {
-        console.log('API call successful:', response);
         resolve({ response, status, xhr });
       },
       error: function (xhr, status, error) {
-        console.error('API call failed:', {
-          status: xhr.status,
-          error: error,
-          response: xhr.responseText
-        });
         const err = new Error('xhr error');
         err.status = xhr.status;
         reject(err);
@@ -38,7 +30,6 @@ const ajaxCall = (url, query, access_token) => {
 
 const authCall = (clientId, clientSecret, authUrl) => {
   const basicAuth = btoa(`${clientId}:${clientSecret}`);
-  console.log('Making auth call with Basic auth token:', basicAuth);
   
   return new Promise((resolve, reject) => {
     $.ajax({
@@ -51,11 +42,17 @@ const authCall = (clientId, clientSecret, authUrl) => {
         "Accept": "*/*",
         "Cache-Control": "no-cache",
         "Accept-Encoding": "gzip, deflate, br",
-        "Connection": "keep-alive"
+        "Connection": "keep-alive",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Sec-Ch-Ua": '"Microsoft Edge";v="131", "Chromium";v="131", "Not A Brand";v="24"',
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Platform": '"Windows"'
+      },
+      xhrFields: {
+        withCredentials: true
       },
       crossDomain: true,
       success: function (response, status, xhr) {
-        console.log('Auth call successful:', response);
         resolve({ response, status, xhr });
       },
       error: function (xhr, status, error) {
@@ -90,7 +87,6 @@ const authCall = (clientId, clientSecret, authUrl) => {
           clientSecret,
           authUrl
         );
-        console.log('Auth token received:', authResponse);
         const access_token = authResponse.access_token;
 
         // Step 2: Make app call with token
@@ -100,7 +96,6 @@ const authCall = (clientId, clientSecret, authUrl) => {
           access_token
         );
         
-        console.log('Final response:', appResponse);
         return appResponse;
       } catch (error) {
         console.error('Error in post method:', error);

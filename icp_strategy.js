@@ -18,7 +18,16 @@
           data: "grant_type=client_credentials",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": `Basic ${basicAuth}`
+            "Authorization": `Basic ${basicAuth}`,
+            "Host": "psibuild.authentication.eu10.hana.ondemand.com",
+            "Accept": "*/*"
+          },
+          beforeSend: function(xhr) {
+            console.log('Request headers:', {
+              contentType: xhr.getRequestHeader('Content-Type'),
+              authorization: xhr.getRequestHeader('Authorization'),
+              host: xhr.getRequestHeader('Host')
+            });
           },
           success: function (response) {
             console.log('Auth success:', response);
@@ -28,7 +37,8 @@
             console.error('Auth failed:', {
               status: xhr.status,
               error: error,
-              response: xhr.responseText
+              response: xhr.responseText,
+              headers: xhr.getAllResponseHeaders()
             });
             reject(error);
           }

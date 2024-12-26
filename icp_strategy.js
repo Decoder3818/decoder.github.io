@@ -46,15 +46,17 @@
             "Authorization": `Bearer ${accessToken}`,
             "AI-Resource-Group": "default",
             "Accept": "*/*",
-            "Origin": "https://ey-global-services-12.eu10.hcs.cloud.sap"
-          },
-          xhrFields: {
-            withCredentials: false
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Origin": "https://ey-global-services-12.eu10.hcs.cloud.sap",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Site": "cross-site",
+            "Sec-Fetch-Dest": "empty"
           },
           beforeSend: function(xhr) {
-            xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://ey-global-services-12.eu10.hcs.cloud.sap');
-            xhr.setRequestHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-            xhr.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, AI-Resource-Group');
+            // Set the Access-Control-Request headers as shown in the preflight
+            xhr.setRequestHeader('Access-Control-Request-Headers', 'ai-resource-group,authorization,content-type');
+            xhr.setRequestHeader('Access-Control-Request-Method', 'POST');
           },
           crossDomain: true,
           success: function (response) {

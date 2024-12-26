@@ -11,9 +11,7 @@ const ajaxCall = (url, query, access_token) => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${access_token}`,
         "AI-Resource-Group": "default",
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Connection": "keep-alive"
+        "Accept": "*/*"
       },
       crossDomain: true,
       success: function (response, status, xhr) {
@@ -35,18 +33,18 @@ const authCall = (clientId, clientSecret, authUrl) => {
     $.ajax({
       url: authUrl,
       type: "POST",
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Access-Control-Request-Method', 'POST');
+        xhr.setRequestHeader('Access-Control-Request-Headers', 'authorization,cache-control');
+      },
       data: 'grant_type=client_credentials',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "Authorization": `Basic ${basicAuth}`,
         "Accept": "*/*",
-        "Cache-Control": "no-cache",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Connection": "keep-alive",
-        "Referrer-Policy": "strict-origin-when-cross-origin",
-        "Sec-Ch-Ua": '"Microsoft Edge";v="131", "Chromium";v="131", "Not A Brand";v="24"',
-        "Sec-Ch-Ua-Mobile": "?0",
-        "Sec-Ch-Ua-Platform": '"Windows"'
+        "Accept-Language": "en-US,en;q=0.9",
+        "Origin": "https://ey-global-services-12.eu10.hcs.cloud.sap",
+        "Referer": "https://ey-global-services-12.eu10.hcs.cloud.sap/"
       },
       xhrFields: {
         withCredentials: true

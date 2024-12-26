@@ -17,12 +17,9 @@
           type: "POST",
           data: "grant_type=client_credentials",
           headers: {
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.9",
             "Authorization": `Basic ${basicAuth}`,
             "Content-Type": "application/x-www-form-urlencoded"
           },
-          crossDomain: true,
           success: function (response) {
             resolve(response.access_token);
           },
@@ -38,27 +35,15 @@
         $.ajax({
           url: apiUrl,
           type: "POST",
+          contentType: "application/json",
+          dataType: "json",
           data: JSON.stringify({
             query: query
           }),
           headers: {
-            "Content-Type": "application/json",
             "Authorization": `Bearer ${accessToken}`,
-            "AI-Resource-Group": "default",
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Origin": "https://ey-global-services-12.eu10.hcs.cloud.sap",
-            "Sec-Fetch-Mode": "cors",
-            "Sec-Fetch-Site": "cross-site",
-            "Sec-Fetch-Dest": "empty"
+            "AI-Resource-Group": "default"
           },
-          beforeSend: function(xhr) {
-            // Set the Access-Control-Request headers as shown in the preflight
-            xhr.setRequestHeader('Access-Control-Request-Headers', 'ai-resource-group,authorization,content-type');
-            xhr.setRequestHeader('Access-Control-Request-Method', 'POST');
-          },
-          crossDomain: true,
           success: function (response) {
             resolve(response);
           },

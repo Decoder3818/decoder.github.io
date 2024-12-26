@@ -27,6 +27,9 @@ const ajaxCall = (url, query, access_token) => {
 };
 
 const authCall = (clientId, clientSecret, authUrl) => {
+  // Properly format the Basic auth token
+  const basicAuthToken = btoa(`${clientId}:${clientSecret}`);
+  
   return new Promise((resolve, reject) => {
     $.ajax({
       url: authUrl,
@@ -35,12 +38,8 @@ const authCall = (clientId, clientSecret, authUrl) => {
       headers: {
         "Accept": "*/*",
         "Accept-Language": "en-US,en;q=0.9",
-        "Authorization": `Basic ${clientId}`, // Using the full Basic auth token directly
+        "Authorization": `Basic ${basicAuthToken}`,
         "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-        "Sec-Ch-Ua": '"Microsoft Edge";v="131", "Chromium";v="131", "Not A Brand";v="24"',
-        "Sec-Ch-Ua-Mobile": "?0",
-        "Sec-Ch-Ua-Platform": '"Windows"',
         "Referer": "https://ey-global-services-12.eu10.hcs.cloud.sap/"
       },
       xhrFields: {
@@ -54,7 +53,8 @@ const authCall = (clientId, clientSecret, authUrl) => {
         console.error('Auth call failed:', {
           status: xhr.status,
           error: error,
-          response: xhr.responseText
+          response: xhr.responseText,
+          token: basicAuthToken
         });
         const err = new Error('xhr error');
         err.status = xhr.status;
@@ -76,12 +76,20 @@ const authCall = (clientId, clientSecret, authUrl) => {
   class MainWebComponent extends HTMLElement {
     async post(clientId, clientSecret, authUrl, url, query) {
       try {
+        console.log('Starting auth process with:', {
+          clientId,
+          authUrl,
+          url
+        });
+
         // Step 1: Get auth token using client credentials
         const { response: authResponse } = await authCall(
-          clientId,  // This should be the full Basic auth token
+          clientId,
           clientSecret,
           authUrl
         );
+        
+        console.log('Auth response received');
         const access_token = authResponse.access_token;
 
         // Step 2: Make app call with token

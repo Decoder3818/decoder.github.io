@@ -13,22 +13,19 @@
       
       return new Promise((resolve, reject) => {
         $.ajax({
-          url: authUrl,
+          url: authUrl + "/oauth/token",
           type: "POST",
           data: "grant_type=client_credentials",
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "*/*",
+            "Accept-Language": "en-US,en;q=0.9",
             "Authorization": `Basic ${basicAuth}`,
-            "Host": "psibuild.authentication.eu10.hana.ondemand.com",
-            "Accept": "*/*"
+            "Content-Type": "application/x-www-form-urlencoded"
           },
-          beforeSend: function(xhr) {
-            console.log('Request headers:', {
-              contentType: xhr.getRequestHeader('Content-Type'),
-              authorization: xhr.getRequestHeader('Authorization'),
-              host: xhr.getRequestHeader('Host')
-            });
+          xhrFields: {
+            withCredentials: false  // Changed to false since we're sending auth in header
           },
+          crossDomain: true,
           success: function (response) {
             console.log('Auth success:', response);
             resolve(response);
@@ -37,8 +34,7 @@
             console.error('Auth failed:', {
               status: xhr.status,
               error: error,
-              response: xhr.responseText,
-              headers: xhr.getAllResponseHeaders()
+              response: xhr.responseText
             });
             reject(error);
           }

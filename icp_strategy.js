@@ -31,10 +31,7 @@ const authCall = (clientId, clientSecret, authUrl) => {
     $.ajax({
       url: authUrl,
       type: "POST",
-      dataType: "json",
-      data: JSON.stringify({
-        grant_type: "client_credentials"
-      }),
+      data: 'grant_type=client_credentials',  // Changed to form data
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "Authorization": `Basic ${basicAuth}`,

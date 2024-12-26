@@ -32,23 +32,45 @@
 
     async makeApiCall(accessToken, apiUrl, query) {
       return new Promise((resolve, reject) => {
+        // First make the OPTIONS request
         $.ajax({
           url: apiUrl,
-          type: "POST",
-          contentType: "application/json",
-          dataType: "json",
-          data: JSON.stringify({
-            query: query
-          }),
+          type: "OPTIONS",
           headers: {
-            "Authorization": `Bearer ${accessToken}`,
-            "AI-Resource-Group": "default"
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "ai-resource-group,authorization,content-type",
+            "Origin": "https://ey-global-services-12.eu10.hcs.cloud.sap"
           },
-          success: function (response) {
-            resolve(response);
+          success: function() {
+            // After successful OPTIONS, make the actual POST request
+            $.ajax({
+              url: apiUrl,
+              type: "POST",
+              contentType: "application/json",
+              data: JSON.stringify({
+                query: query
+              }),
+              headers: {
+                "Authorization": `Bearer ${accessToken}`,
+                "AI-Resource-Group": "default",
+                "Accept": "*/*",
+                "Origin": "https://ey-global-services-12.eu10.hcs.cloud.sap"
+              },
+              success: function (response) {
+                resolve(response);
+              },
+              error: function (xhr, status, error) {
+                console.error('POST request failed:', {
+                  status: xhr.status,
+                  error: error,
+                  response: xhr.responseText
+                });
+                reject(error);
+              }
+            });
           },
-          error: function (xhr, status, error) {
-            console.error('API call failed:', {
+          error: function(xhr, status, error) {
+            console.error('OPTIONS request failed:', {
               status: xhr.status,
               error: error,
               response: xhr.responseText

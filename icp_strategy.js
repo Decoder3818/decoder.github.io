@@ -27,23 +27,20 @@ const ajaxCall = (url, query, access_token) => {
 };
 
 const authCall = (clientId, clientSecret, authUrl) => {
-  const basicAuth = btoa(`${clientId}:${clientSecret}`);
-  
   return new Promise((resolve, reject) => {
     $.ajax({
       url: authUrl,
       type: "POST",
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader('Access-Control-Request-Method', 'POST');
-        xhr.setRequestHeader('Access-Control-Request-Headers', 'authorization,cache-control');
-      },
       data: 'grant_type=client_credentials',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": `Basic ${basicAuth}`,
         "Accept": "*/*",
         "Accept-Language": "en-US,en;q=0.9",
-        "Origin": "https://ey-global-services-12.eu10.hcs.cloud.sap",
+        "Authorization": `Basic ${clientId}`, // Using the full Basic auth token directly
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        "Sec-Ch-Ua": '"Microsoft Edge";v="131", "Chromium";v="131", "Not A Brand";v="24"',
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Platform": '"Windows"',
         "Referer": "https://ey-global-services-12.eu10.hcs.cloud.sap/"
       },
       xhrFields: {
@@ -81,7 +78,7 @@ const authCall = (clientId, clientSecret, authUrl) => {
       try {
         // Step 1: Get auth token using client credentials
         const { response: authResponse } = await authCall(
-          clientId,
+          clientId,  // This should be the full Basic auth token
           clientSecret,
           authUrl
         );

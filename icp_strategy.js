@@ -33,10 +33,10 @@
       });
     }
 
-    async makeApiCall(accessToken, url, query) {
+    async makeApiCall(accessToken, apiUrl, query) {
       return new Promise((resolve, reject) => {
         $.ajax({
-          url: url,
+          url: apiUrl,
           type: "POST",
           data: JSON.stringify({
             query: query
@@ -52,21 +52,28 @@
             resolve(response);
           },
           error: function (xhr, status, error) {
+            console.error('API call failed:', {
+              status: xhr.status,
+              error: error,
+              response: xhr.responseText
+            });
             reject(error);
           }
         });
       });
     }
 
-    async post(clientId, clientSecret, authUrl, url, query) {
+    async post(clientId, clientSecret, authUrl, apiUrl, query) {
       try {
         // Step 1: Get auth token using client credentials
+        console.log('Getting auth token...');
         const accessToken = await this.getAuthToken(clientId, clientSecret, authUrl);
         console.log('Got access token');
 
         // Step 2: Make API call with token
-        const response = await this.makeApiCall(accessToken, url, query);
-        console.log('Got API response');
+        console.log('Making API call...');
+        const response = await this.makeApiCall(accessToken, apiUrl, query);
+        console.log('Got API response:', response);
         
         return response;
       } catch (error) {
